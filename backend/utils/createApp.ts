@@ -1,15 +1,15 @@
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express, Request, Response, NextFunction } from 'express';
 // import path from 'path';
-import cors from "cors";
-import session from "express-session";
-import passport from "passport";
-import store from "connect-mongo";
+import cors from 'cors';
+import session from 'express-session';
+import passport from 'passport';
+import store from 'connect-mongo';
 
 // Strategies
-require("../Strategies/github");
+require('../Strategies/github');
 
 // Routes
-import routes from "../Routes";
+import routes from '../Routes';
 
 const createApp = (): Express => {
   const app = express();
@@ -20,9 +20,9 @@ const createApp = (): Express => {
   // Enable CORS
   app.use(
     cors({
-      origin: ["https://jobs.wolfyy.me", "http://localhost:3000"],
+      origin: ['https://jobs.wolfyy.me', 'http://localhost:3000'],
       credentials: true,
-    })
+    }),
   );
 
   // Enable Sessions
@@ -35,7 +35,7 @@ const createApp = (): Express => {
         maxAge: 1000 * 60 * 60 * 24 * 7,
       },
       store: store.create({ mongoUrl: process.env.MONGO_URI }),
-    })
+    }),
   );
 
   // Setup Passport
@@ -43,7 +43,7 @@ const createApp = (): Express => {
   app.use(passport.session());
 
   // API Routes
-  app.use("/api/v1", routes);
+  app.use('/api/v1', routes);
   return app;
 };
 

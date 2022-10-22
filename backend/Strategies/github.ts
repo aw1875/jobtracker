@@ -1,12 +1,12 @@
-import passport from "passport";
-import { Profile, Strategy } from "passport-github";
-import { VerifyCallback } from "passport-oauth2";
-import type { User } from "../@types/User";
+import passport from 'passport';
+import { Profile, Strategy } from 'passport-github';
+import { VerifyCallback } from 'passport-oauth2';
+import type { User } from '../@types/User';
 
 // Models
-import UserModel from "../Models/UserModel";
+import UserModel from '../Models/UserModel';
 
-const dev = process.env.NODE_ENV === "development";
+const dev = process.env.NODE_ENV === 'development';
 
 passport.serializeUser(async (user: User, done) => {
   try {
@@ -39,7 +39,7 @@ passport.use(
       accessToken: string,
       _: string,
       profile: Profile,
-      done: VerifyCallback
+      done: VerifyCallback,
     ) => {
       const { id, username } = profile;
 
@@ -47,7 +47,7 @@ passport.use(
       const user = await UserModel.findOneAndUpdate(
         { id, username },
         { accessToken },
-        { new: true }
+        { new: true },
       );
 
       if (user) return done(null, user);
@@ -56,6 +56,6 @@ passport.use(
       const newUser = new UserModel({ id, username, accessToken });
       const savedUser = await newUser.save();
       return done(null, savedUser);
-    }
-  )
+    },
+  ),
 );

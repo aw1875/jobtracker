@@ -1,8 +1,8 @@
-import type { GetServerSidePropsContext, NextPage } from "next";
-import Link from "next/link";
-import { FaGithub } from "react-icons/fa";
+import type { GetServerSidePropsContext, NextPage } from 'next';
+import Link from 'next/link';
+import { FaGithub } from 'react-icons/fa';
 
-import { GH_LOGIN_URI } from "../utils/helper";
+import { GH_LOGIN_URI } from '../utils/helper';
 
 const Home: NextPage = () => {
   return (
@@ -18,10 +18,10 @@ const Home: NextPage = () => {
 };
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
-  const sessionId = context.req.cookies["connect.sid"];
-  return !sessionId ? { props: {} } : { redirect: { destination: "/home" } };
+  const sessionId = context.req.cookies['connect.sid'];
+  return !sessionId ? { props: {} } : { redirect: { destination: '/home' } };
 };
 
 export default Home;

@@ -1,14 +1,14 @@
-import { AppProps } from "next/app";
-import Head from "next/head";
-import Router from "next/router";
-import nProgress from "nprogress";
+import { AppProps } from 'next/app';
+import Head from 'next/head';
+import Router from 'next/router';
+import nProgress from 'nprogress';
 
-import "../utils/styles/globals.css";
-import "../utils/styles/nprogress.css";
+import '../utils/styles/globals.css';
+import '../utils/styles/nprogress.css';
 
-Router.events.on("routeChangeStart", () => nProgress.start());
-Router.events.on("routeChangeComplete", () => nProgress.done());
-Router.events.on("routeChangeError", () => nProgress.done());
+Router.events.on('routeChangeStart', () => nProgress.start());
+Router.events.on('routeChangeComplete', () => nProgress.done());
+Router.events.on('routeChangeError', () => nProgress.done());
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

@@ -1,28 +1,28 @@
-import { GetServerSidePropsContext, NextPage } from "next";
-import { useRouter } from "next/router";
-import { useEffect, useState, useRef } from "react";
-import moment from "moment";
+import { GetServerSidePropsContext, NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { useEffect, useState, useRef } from 'react';
+import moment from 'moment';
 
 // Utils
-import { addJobApplication } from "../../utils/api";
-import { GH_LOGOUT_URI } from "../../utils/helper";
+import { addJobApplication } from '../../utils/api';
+import { GH_LOGOUT_URI } from '../../utils/helper';
 
 // Types
-import { SearchResult, Header } from "../../utils/types";
+import { SearchResult, Header } from '../../utils/types';
 
 // Icons
-import { RiFileAddFill } from "react-icons/ri";
-import { MdLogout } from "react-icons/md";
-import { IoChevronBackCircleSharp } from "react-icons/io5";
-import Image from "next/future/image";
-import Link from "next/link";
+import { RiFileAddFill } from 'react-icons/ri';
+import { MdLogout } from 'react-icons/md';
+import { IoChevronBackCircleSharp } from 'react-icons/io5';
+import Image from 'next/future/image';
+import Link from 'next/link';
 
 interface Props {
   headers: Header;
 }
 
 const AddPage: NextPage<Props> = ({ headers }) => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [currentCompany, setCurrentCompany] = useState<SearchResult | null>();
 
@@ -37,13 +37,13 @@ const AddPage: NextPage<Props> = ({ headers }) => {
   const handleAddApplication = () => {
     addJobApplication(
       {
-        company: currentCompany?.name ?? "",
-        title: titleRef.current?.value ?? "",
-        date: new Date(moment(Date.now()).toISOString()) ?? "",
-        contact: contactRef.current?.value ?? "",
-        status: "Applied",
-        location: locationRef.current?.value ?? "",
-        notes: notesRef.current?.value ?? "",
+        company: currentCompany?.name ?? '',
+        title: titleRef.current?.value ?? '',
+        date: new Date(moment(Date.now()).toISOString()) ?? '',
+        contact: contactRef.current?.value ?? '',
+        status: 'Applied',
+        location: locationRef.current?.value ?? '',
+        notes: notesRef.current?.value ?? '',
         headers,
       },
       (status, id?) => {
@@ -51,15 +51,15 @@ const AddPage: NextPage<Props> = ({ headers }) => {
           router.replace(`/job/${id}`);
         }
 
-        if (status === 500) alert("Server error");
-      }
+        if (status === 500) alert('Server error');
+      },
     );
   };
 
   useEffect(() => {
     const searchAPI = async () => {
       const data = await fetch(
-        `https://autocomplete.clearbit.com/v1/companies/suggest?query=${query}`
+        `https://autocomplete.clearbit.com/v1/companies/suggest?query=${query}`,
       ).then((r) => r.json());
       setResults(data);
     };
@@ -113,7 +113,7 @@ const AddPage: NextPage<Props> = ({ headers }) => {
                     className="w-full flex items-center gap-x-4 px-4 py-2 cursor-pointer rounded hover:bg-gray-700 hover:text-white"
                     onClick={() => {
                       setCurrentCompany(r);
-                      setQuery("");
+                      setQuery('');
                       setResults([]);
                     }}
                   >
@@ -193,12 +193,12 @@ const Navbar = () => {
 };
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
-  const sessionId = context.req.cookies["connect.sid"];
+  const sessionId = context.req.cookies['connect.sid'];
   return sessionId
     ? { props: { Cookie: `connect.sid=${sessionId}` } }
-    : { redirect: { destination: "/home" } };
+    : { redirect: { destination: '/home' } };
 };
 
 export default AddPage;

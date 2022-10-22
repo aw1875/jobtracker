@@ -1,5 +1,5 @@
-import { Schema, model } from "mongoose";
-import { Job } from "../@types/Job";
+import { Schema, model } from 'mongoose';
+import { Job } from '../@types/Job';
 
 const JobSchema: Schema = new Schema<Job>({
   company: { type: String, required: true },
@@ -11,5 +11,5 @@ const JobSchema: Schema = new Schema<Job>({
   notes: { type: String, required: false },
 });
 
-const JobModel = model("Job", JobSchema);
+const JobModel = model('Job', JobSchema);
 export default JobModel;

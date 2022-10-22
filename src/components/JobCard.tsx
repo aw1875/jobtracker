@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import Image from "next/future/image";
-import moment from "moment";
+import { useEffect, useState } from 'react';
+import Image from 'next/future/image';
+import moment from 'moment';
 
 // Icons
-import { MdDateRange, MdPermContactCalendar } from "react-icons/md";
+import { MdDateRange, MdPermContactCalendar } from 'react-icons/md';
 
 // Types
-import type { Dispatch, SetStateAction } from "react";
-import type { JobApplication } from "../utils/types";
+import type { Dispatch, SetStateAction } from 'react';
+import type { JobApplication } from '../utils/types';
 
 interface JobCardProps extends JobApplication {
   setShowAdd?: Dispatch<SetStateAction<boolean>>;
@@ -58,15 +58,15 @@ const JobCard = (Props: JobCardProps) => {
 };
 
 const JobInfo = ({ company, title }: JobCardProps) => {
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState('');
 
   useEffect(() => {
     const getImage = async () => {
       const data = await fetch(
         `https://autocomplete.clearbit.com/v1/companies/suggest?query=${company.replace(
           /\s/g,
-          ""
-        )}`
+          '',
+        )}`,
       ).then((r) => r.json());
       setImage(data[0].logo);
     };
@@ -101,7 +101,7 @@ const ApplicationDate = ({ date }: JobCardProps) => {
     <div className="w-full flex justify-center items-center">
       <span className="flex gap-x-2 items-center text-sm">
         <MdDateRange size={16} />
-        {moment(date).format("MM/D/YYYY")}
+        {moment(date).format('MM/D/YYYY')}
       </span>
     </div>
   );
@@ -112,7 +112,7 @@ const Contact = ({ contact }: JobCardProps) => {
     <div className="w-full flex justify-center items-center">
       <span className="flex gap-x-2 items-center text-sm">
         <MdPermContactCalendar size={16} />
-        {contact || "None"}
+        {contact || 'None'}
       </span>
     </div>
   );
@@ -120,23 +120,23 @@ const Contact = ({ contact }: JobCardProps) => {
 
 const Status = ({ status }: { status: string }) => {
   switch (status) {
-    case "Applied": {
+    case 'Applied': {
       return <span className="status bg-blue-400">{status}</span>;
     }
 
-    case "Under Review": {
+    case 'Under Review': {
       return <span className="status bg-orange-300">{status}</span>;
     }
 
-    case "Offered": {
+    case 'Offered': {
       return <span className="status bg-green-300">{status}</span>;
     }
 
-    case "Accepted": {
+    case 'Accepted': {
       return <span className="status bg-green-500">{status}</span>;
     }
 
-    case "Rejected": {
+    case 'Rejected': {
       return <span className="status bg-red-500">{status}</span>;
     }
 

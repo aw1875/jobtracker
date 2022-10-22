@@ -1,16 +1,16 @@
-import { useEffect, useRef, useState } from "react";
-import { GetServerSidePropsContext, NextPage } from "next";
-import Image from "next/future/image";
-import { useRouter } from "next/router";
-import moment from "moment";
+import { useEffect, useRef, useState } from 'react';
+import { GetServerSidePropsContext, NextPage } from 'next';
+import Image from 'next/future/image';
+import { useRouter } from 'next/router';
+import moment from 'moment';
 
 // Utils
 import {
   deleteJobApplication,
   getJobById,
   updateJobDetails,
-} from "../../utils/api";
-import { GH_LOGOUT_URI } from "../../utils/helper";
+} from '../../utils/api';
+import { GH_LOGOUT_URI } from '../../utils/helper';
 
 // Icons
 import {
@@ -19,14 +19,14 @@ import {
   MdPermContactCalendar,
   MdCancel,
   MdLogout,
-} from "react-icons/md";
-import { FaTrash, FaEdit, FaSave } from "react-icons/fa";
-import { GiConfirmed } from "react-icons/gi";
-import { IoChevronBackCircleSharp } from "react-icons/io5";
+} from 'react-icons/md';
+import { FaTrash, FaEdit, FaSave } from 'react-icons/fa';
+import { GiConfirmed } from 'react-icons/gi';
+import { IoChevronBackCircleSharp } from 'react-icons/io5';
 
 // Types
-import type { Header, JobApplication } from "../../utils/types";
-import Link from "next/link";
+import type { Header, JobApplication } from '../../utils/types';
+import Link from 'next/link';
 
 interface Props {
   job: JobApplication;
@@ -34,7 +34,7 @@ interface Props {
 }
 
 const JobPage: NextPage<Props> = ({ job, headers }) => {
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState('');
   const [editNotes, setEditNotes] = useState(false);
   const [editStatus, setEditStatus] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -43,13 +43,13 @@ const JobPage: NextPage<Props> = ({ job, headers }) => {
   const router = useRouter();
 
   const handleUpdateStatus = (status: string) => {
-    updateJobDetails({ _id: job._id, status, notes: "", headers }, (status) => {
+    updateJobDetails({ _id: job._id, status, notes: '', headers }, (status) => {
       if (status === 200) {
         router.replace(router.asPath);
         setEditStatus(false);
       }
 
-      if (status === 500) alert("Server error");
+      if (status === 500) alert('Server error');
     });
   };
 
@@ -57,8 +57,8 @@ const JobPage: NextPage<Props> = ({ job, headers }) => {
     updateJobDetails(
       {
         _id: job._id,
-        status: "",
-        notes: notesRef.current?.value ?? "",
+        status: '',
+        notes: notesRef.current?.value ?? '',
         headers,
       },
       (status) => {
@@ -67,8 +67,8 @@ const JobPage: NextPage<Props> = ({ job, headers }) => {
           setEditNotes(false);
         }
 
-        if (status === 500) alert("Server error");
-      }
+        if (status === 500) alert('Server error');
+      },
     );
   };
 
@@ -78,7 +78,7 @@ const JobPage: NextPage<Props> = ({ job, headers }) => {
         router.back();
       }
 
-      if (status === 500) alert("Server error");
+      if (status === 500) alert('Server error');
     });
   };
 
@@ -87,8 +87,8 @@ const JobPage: NextPage<Props> = ({ job, headers }) => {
       const data = await fetch(
         `https://autocomplete.clearbit.com/v1/companies/suggest?query=${job.company.replace(
           /\s/g,
-          ""
-        )}`
+          '',
+        )}`,
       ).then((r) => r.json());
       setImage(data[0].logo);
     };
@@ -158,14 +158,14 @@ const JobPage: NextPage<Props> = ({ job, headers }) => {
 
             <span className="flex gap-x-2 items-center">
               <MdPermContactCalendar size={24} className="text-white" />
-              {job.contact ? job.contact : "No Contact"}
+              {job.contact ? job.contact : 'No Contact'}
             </span>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-x-8 gap-y-4 justify-center items-center 2xl:justify-end">
             <span className="flex gap-x-2 items-center">
               <MdDateRange size={24} className="text-white" />
-              <p>{moment(job.date).format("MM/D/YYYY")}</p>
+              <p>{moment(job.date).format('MM/D/YYYY')}</p>
             </span>
 
             <div className="flex gap-x-4 select-none">
@@ -195,37 +195,37 @@ const JobPage: NextPage<Props> = ({ job, headers }) => {
           <div className="grid grid-cols-1 lg:flex gap-x-4 gap-y-2 select-none">
             <button
               className="change-status bg-gray-400"
-              onClick={() => handleUpdateStatus("Stale")}
+              onClick={() => handleUpdateStatus('Stale')}
             >
               Stale
             </button>
             <button
               className="change-status bg-blue-400"
-              onClick={() => handleUpdateStatus("Applied")}
+              onClick={() => handleUpdateStatus('Applied')}
             >
               Applied
             </button>
             <button
               className="change-status bg-red-500"
-              onClick={() => handleUpdateStatus("Rejected")}
+              onClick={() => handleUpdateStatus('Rejected')}
             >
               Rejected
             </button>
             <button
               className="change-status bg-orange-300"
-              onClick={() => handleUpdateStatus("Under Review")}
+              onClick={() => handleUpdateStatus('Under Review')}
             >
               Under Review
             </button>
             <button
               className="change-status bg-green-300"
-              onClick={() => handleUpdateStatus("Offered")}
+              onClick={() => handleUpdateStatus('Offered')}
             >
               Offered
             </button>
             <button
               className="change-status bg-green-500"
-              onClick={() => handleUpdateStatus("Accepted")}
+              onClick={() => handleUpdateStatus('Accepted')}
             >
               Accepted
             </button>
@@ -261,7 +261,7 @@ const JobPage: NextPage<Props> = ({ job, headers }) => {
           </>
         ) : (
           <>
-            <p>{job.notes ? job.notes : "No notes"}</p>
+            <p>{job.notes ? job.notes : 'No notes'}</p>
             <button
               className="button-full text-orange-900 bg-orange-300"
               onClick={() => setEditNotes(true)}
@@ -277,23 +277,23 @@ const JobPage: NextPage<Props> = ({ job, headers }) => {
 
 const Status = ({ status }: { status: string }) => {
   switch (status) {
-    case "Applied": {
+    case 'Applied': {
       return <span className="status bg-blue-400">{status}</span>;
     }
 
-    case "Under Review": {
+    case 'Under Review': {
       return <span className="status bg-orange-300">{status}</span>;
     }
 
-    case "Offered": {
+    case 'Offered': {
       return <span className="status bg-green-300">{status}</span>;
     }
 
-    case "Accepted": {
+    case 'Accepted': {
       return <span className="status bg-green-500">{status}</span>;
     }
 
-    case "Rejected": {
+    case 'Rejected': {
       return <span className="status bg-red-500">{status}</span>;
     }
 
@@ -325,7 +325,7 @@ const Navbar = () => {
 };
 
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
   const id = context.query.id as string;
   return id ? getJobById(id, context) : { props: {} };
