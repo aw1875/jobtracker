@@ -77,7 +77,7 @@ export const addJobApplication = async (
       notes,
     }),
   })
-    .then((r) => {
+    .then(async (r) => {
       return r.json().then((data) => {
         cb(r.status, data.id);
       });
