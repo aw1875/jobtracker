@@ -1,0 +1,14 @@
+.env
+node_modules
+/.next/
+/out/
+/build
+ecosystem.*
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.tsbuildinfo
+next-env.d.ts

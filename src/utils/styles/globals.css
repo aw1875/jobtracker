@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tailwind Component Classes */
+@layer components {
+  .navbar {
+    @apply w-auto flex gap-x-2 md:gap-0 fixed top-4 inset-x-4 md:inset-x-20 justify-between items-center bg-gray-700 text-white shadow-black shadow-md rounded py-2 px-4
+  }
+
+  .button {
+    @apply flex justify-center items-center gap-x-2 text-center text-sm font-bold py-2 px-4 rounded select-none
+  }
+
+  .button-full {
+    @apply w-full flex justify-center items-center gap-x-2 text-center text-sm font-bold py-2 px-4 rounded select-none
+  }
+
+  .status {
+    @apply text-center text-sm py-2 px-4 rounded col-span-2 sm:col-span-1
+  }
+
+  .filter-status {
+    @apply text-center text-sm py-2 px-8 rounded
+  }
+
+  .change-status {
+    @apply w-full text-center text-sm py-2 px-4 rounded
+  }
+
+  .input {
+    @apply w-full px-4 py-2 rounded outline-none
+  }
+}
+
+/* Scrollbar and Selection */
+*::-webkit-scrollbar {
+  width: 10px;
+  background-color: rgb(55, 65, 81);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(156, 163, 175);
+  border-radius: 3px;
+}
+
+*::selection {
+  background-color: rgb(156, 163, 175);
+  color: rgb(255, 255, 255);
+}
