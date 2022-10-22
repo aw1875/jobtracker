@@ -11,9 +11,9 @@ module.exports = {
         "github-white": "#fafafa",
       },
       gridTemplateColumns: {
-        "test": '5rem 1fr auto'
-      }
+        test: "5rem 1fr auto",
+      },
     },
   },
   plugins: [],
-}
+};

@@ -5,7 +5,7 @@ const ensureAuthenticated = (
   res: Response,
   next: NextFunction
 ) => {
-  return req.isAuthenticated() ? next() : res.status(403).send('Unauthorized');
-}
+  return req.isAuthenticated() ? next() : res.status(403).send("Unauthorized");
+};
 
 export default ensureAuthenticated;

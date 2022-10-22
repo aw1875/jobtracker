@@ -1,12 +1,12 @@
-import { config } from 'dotenv';
+import { config } from "dotenv";
 config();
 import next from "next";
 
 // Utils
 import createApp from "./utils/createApp";
-import './utils/database';
+import "./utils/database";
 
-const dev = process.env.NODE_ENV === 'development';
+const dev = process.env.NODE_ENV === "development";
 const PORT = dev ? process.env.PORT_DEV : process.env.PORT;
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -16,9 +16,9 @@ const handle = app.getRequestHandler();
     app.prepare().then(() => {
       const server = createApp();
 
-      server.all('*', (req, res) => {
+      server.all("*", (req, res) => {
         return handle(req, res);
-      })
+      });
 
       server.listen(PORT, () => console.log(`Running on port ${PORT}`));
     });
@@ -26,4 +26,3 @@ const handle = app.getRequestHandler();
     console.error(err);
   }
 })();
-
