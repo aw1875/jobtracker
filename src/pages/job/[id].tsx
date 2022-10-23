@@ -261,7 +261,7 @@ const JobPage: NextPage<Props> = ({ job, headers }) => {
           </>
         ) : (
           <>
-            <p>{job.notes ? job.notes : 'No notes'}</p>
+            <Notes notes={job.notes || 'No notes'} />
             <button
               className="button-full text-orange-900 bg-orange-300"
               onClick={() => setEditNotes(true)}
@@ -301,6 +301,30 @@ const Status = ({ status }: { status: string }) => {
       return <span className="status bg-gray-400">{status}</span>;
     }
   }
+};
+
+const Notes = ({ notes }: { notes: string }) => {
+  const urlReg = /((?:https?:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)/gi;
+
+  return (
+    <div>
+      {notes.split(urlReg).map((text, index) => {
+        if (text.match(urlReg)) {
+          return (
+            <a
+              key={index}
+              href={text}
+              target="_blank"
+              className="text-red-600 italic"
+            >
+              {text}
+            </a>
+          );
+        }
+        return text !== '' && <span key={index}>{text}</span>;
+      })}
+    </div>
+  );
 };
 
 const Navbar = () => {
