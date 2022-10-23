@@ -20,12 +20,12 @@ jobs:
     - name: Create .env file
       run: |
         touch .env
-        echo PORT=${{ secrets.PORT }} >> .env
-        echo MONGO_URI=mongodb+srv://${{ secrets.MONGO_USER }}:${{ secrets.MONGO_PASS }}@jobs.djthdn9.mongodb.net/?retryWrites=true&w=majority >> .env
-        echo SESSION_SECRET=${{ secrets.SESSION_SECRET }} >> .env
-        echo GH_CLIENT_ID=${{ secrets.GH_CLIENT_ID }} >> .env
-        echo GH_CLIENT_SECRET=${{ secrets.GH_CLIENT_SECRET }} >> .env
-        echo GH_CB_URI=${{ secrets.GH_CB_URI }} >> .env
+        # echo "PORT=${{ secrets.PORT }}" >> .env
+        echo "MONGO_URI=mongodb+srv://${{ secrets.MONGO_USER }}:${{ secrets.MONGO_PASS }}@jobs.djthdn9.mongodb.net/?retryWrites=true&w=majority" >> .env
+        # echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" >> .env
+        # echo "GH_CLIENT_ID=${{ secrets.GH_CLIENT_ID }}" >> .env
+        # echo "GH_CLIENT_SECRET=${{ secrets.GH_CLIENT_SECRET }}" >> .env
+        # echo "GH_CB_URI=${{ secrets.GH_CB_URI }}" >> .env
         
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
