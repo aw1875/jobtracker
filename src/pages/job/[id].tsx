@@ -100,7 +100,7 @@ const JobPage: NextPage<Props> = ({ job, headers }) => {
       <Navbar />
 
       <div className="w-full lg:w-2/3 flex flex-col gap-y-8 bg-gray-700 text-white rounded p-4 md:p-12">
-        <div className="w-full grid grid-cols-1 gap-4 text-center lg:text-left lg:gap-8 lg:grid-cols-test items-center">
+        <div className="w-full grid grid-cols-1 gap-4 text-center lg:text-left lg:gap-8 lg:grid-cols-banner items-center">
           {/* Image */}
           {!image ? (
             <span className="w-14 h-14 rounded-full bg-white p-1 animate-pulse select-none" />
