@@ -1,3 +1,20 @@
+import { GetServerSidePropsContext } from 'next';
+
+export type ContextUser = GetServerSidePropsContext & {
+  req: {
+    user: User;
+  };
+};
+
+export interface User {
+  _id: string;
+  id: string;
+  username: string;
+  accessToken: string;
+  jobs: string[];
+  __v: number;
+}
+
 export interface JobApplication {
   company: string;
   title: string;

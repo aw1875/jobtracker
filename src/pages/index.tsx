@@ -1,8 +1,14 @@
-import type { GetServerSidePropsContext, NextPage } from 'next';
+import type { NextPage } from 'next';
 import Link from 'next/link';
-import { FaGithub } from 'react-icons/fa';
 
+// Utils
 import { GH_LOGIN_URI } from '../utils/helper';
+
+// Types
+import { ContextUser } from '../utils/types';
+
+// Icons
+import { FaGithub } from 'react-icons/fa';
 
 const Home: NextPage = () => {
   return (
@@ -17,11 +23,8 @@ const Home: NextPage = () => {
   );
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext,
-) => {
-  const sessionId = context.req.cookies['connect.sid'];
-  return !sessionId ? { props: {} } : { redirect: { destination: '/home' } };
+export const getServerSideProps = async ({ req }: ContextUser) => {
+  return req.user ? { redirect: { destination: '/home' } } : { props: {} };
 };
 
 export default Home;

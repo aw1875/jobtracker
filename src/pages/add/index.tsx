@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext, NextPage } from 'next';
+import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef } from 'react';
 import moment from 'moment';
@@ -8,7 +8,7 @@ import { addJobApplication } from '../../utils/api';
 import { GH_LOGOUT_URI } from '../../utils/helper';
 
 // Types
-import { SearchResult, Header } from '../../utils/types';
+import { SearchResult, Header, ContextUser } from '../../utils/types';
 
 // Icons
 import { RiFileAddFill } from 'react-icons/ri';
@@ -192,13 +192,10 @@ const Navbar = () => {
   );
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext,
-) => {
-  const sessionId = context.req.cookies['connect.sid'];
-  return sessionId
-    ? { props: { Cookie: `connect.sid=${sessionId}` } }
-    : { redirect: { destination: '/home' } };
+export const getServerSideProps = async ({ req }: ContextUser) => {
+  return req.user
+    ? { props: { Cookie: `connect.sid=${req.cookies['connect.sid']}` } }
+    : { redirect: { destination: '/' } };
 };
 
 export default AddPage;

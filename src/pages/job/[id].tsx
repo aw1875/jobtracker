@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import Image from 'next/future/image';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import moment from 'moment';
 
 // Utils
@@ -26,7 +27,6 @@ import { IoChevronBackCircleSharp } from 'react-icons/io5';
 
 // Types
 import type { Header, JobApplication } from '../../utils/types';
-import Link from 'next/link';
 
 interface Props {
   job: JobApplication;
