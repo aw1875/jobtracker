@@ -101,7 +101,7 @@ const AddPage: NextPage<Props> = ({ headers }) => {
           )}
 
           {query && (
-            <div className="w-full p-4 absolute top-12 bg-white rounded flex flex-col gap-y-2">
+            <div className="w-full p-4 absolute top-12 bg-white rounded flex flex-col gap-y-2 shadow-black shadow">
               {results.length === 0 ? (
                 <p className="p-4 text-center text-gray-300">
                   No results for <span className="italic">{query}</span>

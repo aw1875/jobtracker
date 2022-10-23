@@ -120,6 +120,14 @@ const HomePage: NextPage<Props> = ({ jobs }) => {
           <p className="p-4 text-center text-gray-300">No Applications</p>
         )}
       </div>
+
+      {filteredJobs.length > 0 && (
+        <span className="absolute inset-x-20 text-center">
+          <a className="text-white" href="https://clearbit.com">
+            Logos provided by Clearbit
+          </a>
+        </span>
+      )}
     </div>
   );
 };
