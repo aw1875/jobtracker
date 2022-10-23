@@ -3,7 +3,6 @@ node_modules
 /.next/
 /out/
 /build
-ecosystem.*
 .DS_Store
 *.pem
 npm-debug.log*
