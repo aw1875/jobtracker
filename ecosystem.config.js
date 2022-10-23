@@ -4,7 +4,7 @@ module.exports = {
       name: "jobs.wolfyy.me",
       script: "yarn",
       automation: false,
-      watch: true,
+      args: "start",
     },
   ],
 };
