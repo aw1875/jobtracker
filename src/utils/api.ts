@@ -1,18 +1,58 @@
 import { GetServerSidePropsContext } from 'next';
 import { validateCookies, API_URI } from './helper';
-import { DeleteJobProps, AddJobProps, UpdateJobProps } from './types';
+import {
+  DeleteJobProps,
+  AddJobProps,
+  UpdateJobProps,
+  Header,
+  JobApplication,
+} from './types';
 
-export const getUserJobs = async (context: GetServerSidePropsContext) => {
-  const headers = validateCookies(context);
-  if (!headers) return { redirect: { destination: '/' } };
+// export const getUserJobs = async (context: GetServerSidePropsContext) => {
+//   const headers = validateCookies(context);
+//   if (!headers) return { redirect: { destination: '/' } };
 
-  try {
-    const jobs = await fetch(`${API_URI}/api/v1/job`, { headers }).then((r) =>
-      r.json(),
-    );
-    return { props: { jobs } };
-  } catch (err) {
-    return { redirect: { destination: '/' } };
+//   try {
+//     const { jobs, pages } = await fetch(`${API_URI}/api/v1/job`, { headers }).then((r) =>
+//       r.json(),
+//     );
+//     return { props: { jobs, pages, headers } };
+//   } catch (err) {
+//     return { redirect: { destination: '/' } };
+//   }
+// };
+
+export const getUserJobs = async (
+  page: number,
+  context?: GetServerSidePropsContext | null,
+  headers?: Header,
+  cb?: (jobs: JobApplication[]) => void,
+) => {
+  if (context) {
+    const headers = validateCookies(context);
+    if (!headers) return { redirect: { destination: '/' } };
+
+    try {
+      const { jobs, pages } = await fetch(`${API_URI}/api/v1/job`, {
+        headers,
+      }).then((r) => r.json());
+      return { props: { jobs, pages, headers } };
+    } catch (err) {
+      return { redirect: { destination: '/' } };
+    }
+  } else {
+    try {
+      const { jobs } = await fetch(`${API_URI}/api/v1/job?page=${page}`, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include',
+        headers: { ...headers },
+      }).then((r) => r.json());
+
+      cb?.(jobs);
+    } catch (err) {
+      return cb?.([]);
+    }
   }
 };
 

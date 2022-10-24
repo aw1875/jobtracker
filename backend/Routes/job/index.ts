@@ -7,13 +7,25 @@ import JobModel from '../../Models/JobModel';
 const router = Router();
 
 router.get('/', async (req, res) => {
+  const { page } = req.query;
+  const skip = page ? (parseInt(page as string) - 1) * 10 : 1;
   try {
+    const userJobs = await UserModel.findOne(
+      { id: req.user.id },
+      { __v: 0 },
+    ).exec();
+    const totalPages = Math.ceil(userJobs?.jobs.length / 10);
+
     const user = await UserModel.findOne({ id: req.user.id }, { __v: 0 })
-      .populate({ path: 'jobs', model: JobModel.modelName })
+      .populate({
+        path: 'jobs',
+        model: JobModel.modelName,
+        options: { sort: { _id: -1 }, skip: skip, limit: 10 },
+      })
       .exec();
 
     return user
-      ? res.status(200).send(user.jobs.reverse())
+      ? res.status(200).send({ jobs: user.jobs, pages: totalPages })
       : res.status(200).send([]);
   } catch (err) {
     return res.status(500).send(err);

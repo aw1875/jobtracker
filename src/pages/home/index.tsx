@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // Components
 import JobCard from '../../components/JobCard';
@@ -12,18 +12,31 @@ import { GH_LOGOUT_URI, FilterFlow } from '../../utils/helper';
 
 // Icons
 import { RiFileAddFill } from 'react-icons/ri';
+import { GoTriangleLeft, GoTriangleRight } from 'react-icons/go';
 import { FaFilter } from 'react-icons/fa';
 import { MdLogout } from 'react-icons/md';
 
 // Types
-import { JobApplication } from '../../utils/types';
+import { Header, JobApplication } from '../../utils/types';
 
 type Props = {
   jobs: JobApplication[];
+  pages: number;
+  headers: Header;
 };
 
-const HomePage: NextPage<Props> = ({ jobs }) => {
+const HomePage: NextPage<Props> = ({ jobs, pages, headers }) => {
   const [showFilters, setShowFilters] = useState(false);
+
+  // Pages States
+  const [page, setPage] = useState(1);
+  const [jobsPage, setJobsPage] = useState(jobs);
+
+  useEffect(() => {
+    getUserJobs(page, null, headers, (jobs: JobApplication[]) => {
+      setJobsPage(jobs);
+    });
+  }, [page]);
 
   // Filter States
   const [query, setQuery] = useState('');
@@ -31,13 +44,13 @@ const HomePage: NextPage<Props> = ({ jobs }) => {
 
   const filterJobs = (): JobApplication[] => {
     return FilterFlow[jobCategoryFilter as keyof typeof FilterFlow](
-      jobs,
+      jobsPage,
       query,
     );
   };
 
   const filteredJobs =
-    query || jobCategoryFilter !== 'All' ? filterJobs() : jobs;
+    query || jobCategoryFilter !== 'All' ? filterJobs() : jobsPage;
 
   return (
     <div className="w-full min-h-screen bg-gray-800 pt-36 pb-8 px-4 md:px-20 select-none">
@@ -121,12 +134,38 @@ const HomePage: NextPage<Props> = ({ jobs }) => {
         )}
       </div>
 
+      <div className="grid grid-cols-3 justify-center items-center gap-x-8 p-2 mt-4 rounded bg-gray-700">
+        <button
+          disabled={page === 1}
+          onClick={() => {
+            setPage((page) => page - 1);
+          }}
+          className="button bg-gray-400 text-gray-800 disabled:bg-gray-600"
+        >
+          <GoTriangleLeft size={26} />
+        </button>
+
+        <p className="text-center text-white">
+          Page {page} of {pages}
+        </p>
+
+        <button
+          disabled={page >= pages}
+          onClick={() => {
+            setPage((page) => page + 1);
+          }}
+          className="button bg-gray-400 text-gray-800 disabled:bg-gray-600"
+        >
+          <GoTriangleRight size={26} />
+        </button>
+      </div>
+
       {filteredJobs.length > 0 && (
-        <span className="absolute inset-x-20 text-center">
-          <a className="text-white" href="https://clearbit.com">
+        <div className="w-full mt-4 text-center">
+          <a className="text-white" target="_blank" href="https://clearbit.com">
             Logos provided by Clearbit
           </a>
-        </span>
+        </div>
       )}
     </div>
   );
@@ -156,7 +195,7 @@ const Navbar = () => {
 export const getServerSideProps = async (
   context: GetServerSidePropsContext,
 ) => {
-  return getUserJobs(context);
+  return getUserJobs(1, context);
 };
 
 export default HomePage;
