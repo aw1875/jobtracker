@@ -40,7 +40,7 @@ const HomePage: NextPage<Props> = ({ jobs }) => {
     query || jobCategoryFilter !== 'All' ? filterJobs() : jobs;
 
   return (
-    <div className="w-full min-h-screen bg-gray-800 pt-36 pb-8 px-4 md:px-20 select-none">
+    <div className="w-full min-h-screen bg-gray-800 pt-36 pb-4 px-4 md:px-20 select-none">
       <Navbar />
       <div className="w-auto flex flex-col gap-y-2 fixed top-20 inset-x-4 md:inset-x-20 justify-between items-center bg-gray-700 text-white shadow-black shadow-md rounded py-2 px-4">
         <div className="w-full flex gap-x-2 justify-between items-center">
@@ -122,11 +122,11 @@ const HomePage: NextPage<Props> = ({ jobs }) => {
       </div>
 
       {filteredJobs.length > 0 && (
-        <span className="absolute inset-x-20 text-center">
+        <div className="w-full mt-4 text-center">
           <a className="text-white" href="https://clearbit.com">
             Logos provided by Clearbit
           </a>
-        </span>
+        </div>
       )}
     </div>
   );
