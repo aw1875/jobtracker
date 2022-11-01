@@ -307,7 +307,7 @@ const Notes = ({ notes }: { notes: string }) => {
   const urlReg = /((?:https?:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)/gi;
 
   return (
-    <div>
+    <pre className="font-sans">
       {notes.split(urlReg).map((text, index) => {
         if (text.match(urlReg)) {
           return (
@@ -323,7 +323,7 @@ const Notes = ({ notes }: { notes: string }) => {
         }
         return text !== '' && <span key={index}>{text}</span>;
       })}
-    </div>
+    </pre>
   );
 };
 
