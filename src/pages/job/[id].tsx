@@ -307,7 +307,7 @@ const Notes = ({ notes }: { notes: string }) => {
   const urlReg = /((?:https?:\/\/|www\.)(?:[-a-z0-9]+\.)*[-a-z0-9]+.*)/gi;
 
   return (
-    <pre className="font-sans">
+    <pre className="font-sans whitespace-pre-wrap">
       {notes.split(urlReg).map((text, index) => {
         if (text.match(urlReg)) {
           return (
