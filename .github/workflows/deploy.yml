@@ -4,7 +4,6 @@ on:
   push:
     branches: [ "master" ]
   pull_request:
-    branches: [ "master" ]
     types:
       - closed
 
@@ -16,8 +15,6 @@ jobs:
         matrix:
           node-version: [16.x]
 
-    if_merged:
-      if: github.event.pull_request.merged == true
       steps:
       - uses: actions/checkout@v3
       - name: Create .env file
