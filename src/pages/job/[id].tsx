@@ -317,7 +317,7 @@ const Notes = ({ notes }: { notes: string }) => {
               target="_blank"
               className="text-red-600 italic"
             >
-              {text}
+              {text.split('/')[2]}
             </a>
           );
         }
