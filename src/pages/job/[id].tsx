@@ -310,6 +310,10 @@ const Notes = ({ notes }: { notes: string }) => {
     <pre className="font-sans whitespace-pre-wrap">
       {notes.split(urlReg).map((text, index) => {
         if (text.match(urlReg)) {
+          const url = new URL(text);
+          const domain = url.hostname.replace(/^www\./, '');
+          const truncatedUrl = `${url.protocol}//${domain}`;
+
           return (
             <a
               key={index}
@@ -317,7 +321,7 @@ const Notes = ({ notes }: { notes: string }) => {
               target="_blank"
               className="text-red-600 italic"
             >
-              {text.split('/')[2]}
+              {truncatedUrl}
             </a>
           );
         }
